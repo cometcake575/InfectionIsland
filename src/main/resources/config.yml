@@ -1,6 +1,6 @@
 # URL of resource pack - default is the github link
 # Leave blank to use no pack
-pack-url: ""
+pack-url: "https://github.com/cometcake575/InfectionIsland/blob/main/Resource%20Pack.zip"
 # Enforce using the resource pack
 enforce-pack: true
 # Resource pack message
