@@ -1,0 +1,17 @@
+name: ZombieInfection
+main: com.starshootercity.zombies.ZombieInfection
+version: 1.0.0
+description: The plugin for the Infected Island SMP
+api-version: '1.20'
+author: cometcake575
+
+permissions:
+  infection.control:
+    default: op
+    description: Use admin ZombieInfection commands
+
+commands:
+  set-lives:
+    usage: /<command> <player> <int>
+    description: Set the number of lives a player has
+    permission: infection.control

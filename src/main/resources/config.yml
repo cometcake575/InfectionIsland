@@ -1,0 +1,10 @@
+# URL of resource pack - default is the github link
+# Leave blank to use no pack
+pack-url: ""
+# Enforce using the resource pack
+enforce-pack: true
+# Resource pack message
+pack-message: "Infection resource pack"
+
+# Number of lives each player currently has
+lives: {}
