@@ -3,19 +3,13 @@ package com.starshootercity.zombies.entities;
 import com.destroystokyo.paper.entity.ai.Goal;
 import com.destroystokyo.paper.entity.ai.GoalKey;
 import com.destroystokyo.paper.entity.ai.GoalType;
-import com.starshootercity.zombies.ZombieInfection;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
+import com.starshootercity.zombies.InfectionIsland;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.craftbukkit.v1_20_R2.entity.CraftMob;
-import org.bukkit.craftbukkit.v1_20_R2.entity.CraftZombie;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -28,7 +22,7 @@ public class PlayerTargetGoal implements Goal<Mob> {
     private final ZombieEntity entity;
 
     public PlayerTargetGoal(ZombieEntity entity) {
-        this.key = GoalKey.of(Mob.class, new NamespacedKey(ZombieInfection.getInstance(), "target_player"));
+        this.key = GoalKey.of(Mob.class, new NamespacedKey(InfectionIsland.getInstance(), "target_player"));
         this.mob = entity.getBukkitEntity();
         this.entity = entity;
     }

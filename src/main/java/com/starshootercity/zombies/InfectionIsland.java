@@ -5,10 +5,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ZombieInfection extends JavaPlugin {
-    private static ZombieInfection instance;
+public class InfectionIsland extends JavaPlugin {
+    private static InfectionIsland instance;
 
-    public static ZombieInfection getInstance() {
+    public static InfectionIsland getInstance() {
         return instance;
     }
 

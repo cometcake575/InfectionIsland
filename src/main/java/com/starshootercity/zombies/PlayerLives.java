@@ -4,7 +4,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -41,17 +40,17 @@ public class PlayerLives implements Listener, CommandExecutor {
     }
 
     public static int getLives(Player player) {
-        return ZombieInfection.getInstance().getConfig().getInt("lives.%s".formatted(player.getUniqueId().toString()), -1);
+        return InfectionIsland.getInstance().getConfig().getInt("lives.%s".formatted(player.getUniqueId().toString()), -1);
     }
     public static void setLives(Player player, int amount) {
         if (amount < 0) amount = 0;
-        ZombieInfection.getInstance().getConfig().set("lives.%s".formatted(player.getUniqueId().toString()), amount);
+        InfectionIsland.getInstance().getConfig().set("lives.%s".formatted(player.getUniqueId().toString()), amount);
         updateAppearance(player);
         if (getLives(player) < 1) {
             player.setGameMode(GameMode.SPECTATOR);
             player.getWorld().strikeLightningEffect(player.getLocation());
         }
-        ZombieInfection.getInstance().saveConfig();
+        InfectionIsland.getInstance().saveConfig();
     }
     public static void updateAppearance(Player player) {
         player.playerListName(Component.text("%s".formatted(player.getName()))

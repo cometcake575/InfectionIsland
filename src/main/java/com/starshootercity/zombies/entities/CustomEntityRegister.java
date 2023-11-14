@@ -1,6 +1,6 @@
 package com.starshootercity.zombies.entities;
 
-import com.starshootercity.zombies.ZombieInfection;
+import com.starshootercity.zombies.InfectionIsland;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -41,7 +41,7 @@ public class CustomEntityRegister implements Listener {
         };
     }
 
-    NamespacedKey key = new NamespacedKey(ZombieInfection.getInstance(), "CustomEntity");
+    NamespacedKey key = new NamespacedKey(InfectionIsland.getInstance(), "CustomEntity");
 
     @EventHandler
     public void onEntitiesLoad(EntitiesLoadEvent event) {
@@ -61,14 +61,14 @@ public class CustomEntityRegister implements Listener {
                 i.setType(Material.ROTTEN_FLESH);
             }
             if (event.getEntityType() == EntityType.PIG) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask(ZombieInfection.getInstance(), () -> {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(InfectionIsland.getInstance(), () -> {
                     event.getEntity().getLocation().createExplosion(3);
                 }, 20);
             }
             return;
         }
         Bukkit.getScheduler().scheduleSyncDelayedTask(
-                ZombieInfection.getInstance(),
+                InfectionIsland.getInstance(),
                 () -> {
                     if (event.getEntity().getPotionEffect(PotionEffectType.REGENERATION) != null) return;
                     ZombieEntity entity = createZombieVariant(event.getEntityType(),

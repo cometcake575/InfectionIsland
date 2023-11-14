@@ -1,8 +1,7 @@
 package com.starshootercity.zombies.entities;
 
-import com.starshootercity.zombies.ZombieInfection;
+import com.starshootercity.zombies.InfectionIsland;
 import net.kyori.adventure.text.Component;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -28,7 +27,7 @@ public abstract class ZombieEntity {
         bukkitEntity.setPersistent(true);
         bukkitEntity.customName(Component.text("Zombified %s".formatted(entityName)));
         bukkitEntity.setCustomNameVisible(false);
-        bukkitEntity.getPersistentDataContainer().set(new NamespacedKey(ZombieInfection.getInstance(), "CustomEntity"), PersistentDataType.BOOLEAN, true);
+        bukkitEntity.getPersistentDataContainer().set(new NamespacedKey(InfectionIsland.getInstance(), "CustomEntity"), PersistentDataType.BOOLEAN, true);
         AttributeInstance instance = bukkitEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if (instance != null) {
             instance.setBaseValue(instance.getValue() * 2.5);
