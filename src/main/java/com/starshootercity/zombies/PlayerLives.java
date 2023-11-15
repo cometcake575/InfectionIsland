@@ -119,7 +119,7 @@ public class PlayerLives implements Listener, CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 2) {
             Player target = Bukkit.getPlayer(args[0]);
-            if (target != null && args[1].matches("\\d")) {
+            if (target != null && args[1].matches("\\d+")) {
                 setLives(target, Integer.parseInt(args[1]));
                 return true;
             }
