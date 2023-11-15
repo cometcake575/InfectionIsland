@@ -18,6 +18,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomEntityRegister implements Listener {
 
     public static ZombieEntity createZombieVariant(EntityType entityType, Location loc) {
@@ -40,6 +43,14 @@ public class CustomEntityRegister implements Listener {
             default -> null;
         };
     }
+
+    public static List<EntityType> zombifiableMobs = new ArrayList<>() {{
+        add(EntityType.CHICKEN);
+        add(EntityType.COW);
+        add(EntityType.PIG);
+        add(EntityType.SHEEP);
+        add(EntityType.SPIDER);
+    }};
 
     protected static NamespacedKey customEntityKey = new NamespacedKey(InfectionIsland.getInstance(), "CustomEntity");
 

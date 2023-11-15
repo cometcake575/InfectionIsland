@@ -4,6 +4,8 @@ import com.destroystokyo.paper.entity.ai.Goal;
 import com.destroystokyo.paper.entity.ai.GoalKey;
 import com.destroystokyo.paper.entity.ai.GoalType;
 import com.starshootercity.zombies.InfectionIsland;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -53,19 +55,17 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
             closestDistance = distance;
             closestEntity = player;
         }
-        if (closestEntity == null) {
-            Collection<Entity> nearbyEntities = mob.getNearbyEntities(10, 10, 10);
-            for (Entity nearbyEntity : nearbyEntities) {
-                double distance = nearbyEntity.getLocation().distanceSquared(mob.getLocation());
-                if (closestDistance != -1 && !(distance < closestDistance)) {
-                    continue;
-                }
-                if (nearbyEntity instanceof LivingEntity living) {
-                    if (living.getType() != mob.getType() || living == mob) continue;
-                    if (living.getPersistentDataContainer().has(CustomEntityRegister.customEntityKey)) continue;
-                    closestDistance = distance;
-                    closestEntity = living;
-                }
+        Collection<Entity> nearbyEntities = mob.getNearbyEntities(10, 10, 10);
+        for (Entity nearbyEntity : nearbyEntities) {
+            double distance = nearbyEntity.getLocation().distanceSquared(mob.getLocation());
+            if (closestDistance != -1 && !(distance < closestDistance)) {
+                continue;
+            }
+            if (nearbyEntity instanceof LivingEntity living) {
+                if (!CustomEntityRegister.zombifiableMobs.contains(living.getType()) || living == mob) continue;
+                if (living.getPersistentDataContainer().has(CustomEntityRegister.customEntityKey)) continue;
+                closestDistance = distance;
+                closestEntity = living;
             }
         }
         return closestEntity;
@@ -84,7 +84,7 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
     @Override
     public void tick() {
         mob.setTarget(closestEntity);
-        if (mob.getLocation().distanceSquared(closestEntity.getLocation()) < 1) {
+        if (mob.getLocation().distanceSquared(closestEntity.getLocation()) < 2.5) {
             if (Instant.now().getEpochSecond() - time < 1) {
                 return;
             }
