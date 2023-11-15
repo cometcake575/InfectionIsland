@@ -4,7 +4,6 @@ import com.destroystokyo.paper.entity.ai.Goal;
 import com.destroystokyo.paper.entity.ai.GoalKey;
 import com.destroystokyo.paper.entity.ai.GoalType;
 import com.starshootercity.zombies.InfectionIsland;
-import net.minecraft.world.entity.ai.goal.ZombieAttackGoal;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -19,7 +18,7 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.EnumSet;
 
-public class PlayerTargetGoal implements Goal<Mob> {
+public class CustomZombieTargetGoal implements Goal<Mob> {
     private final GoalKey<Mob> key;
     private final Mob mob;
     private LivingEntity closestEntity;
@@ -27,7 +26,7 @@ public class PlayerTargetGoal implements Goal<Mob> {
 
     private double time;
 
-    public PlayerTargetGoal(ZombieEntity entity) {
+    public CustomZombieTargetGoal(ZombieEntity entity) {
         this.key = GoalKey.of(Mob.class, new NamespacedKey(InfectionIsland.getInstance(), "target_player"));
         this.mob = entity.getBukkitEntity();
         this.entity = entity;
@@ -88,6 +87,7 @@ public class PlayerTargetGoal implements Goal<Mob> {
             if (Instant.now().getEpochSecond() - time < 1) {
                 return;
             }
+            time = Instant.now().getEpochSecond();
             mob.getPathfinder().stopPathfinding();
             mob.registerAttribute(Attribute.GENERIC_ATTACK_DAMAGE);
             AttributeInstance instance = mob.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE);

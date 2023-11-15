@@ -12,7 +12,6 @@ import org.bukkit.craftbukkit.v1_20_R2.entity.CraftMob;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 
 public abstract class ZombieEntity {
@@ -46,7 +45,7 @@ public abstract class ZombieEntity {
         Bukkit.getMobGoals().removeAllGoals(bukkitEntity);
         FloatGoal floatGoal = new FloatGoal(((CraftMob) bukkitEntity).getHandle());
 
-        PlayerTargetGoal targetGoal = new PlayerTargetGoal(this);
+        CustomZombieTargetGoal targetGoal = new CustomZombieTargetGoal(this);
         Bukkit.getMobGoals().addGoal(bukkitEntity, 1, targetGoal);
         Bukkit.getMobGoals().addGoal(bukkitEntity, 0, floatGoal.asPaperVanillaGoal());
     }
