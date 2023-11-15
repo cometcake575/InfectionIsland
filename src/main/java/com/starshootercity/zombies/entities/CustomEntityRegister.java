@@ -5,10 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Sheep;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -86,6 +83,11 @@ public class CustomEntityRegister implements Listener {
                     if (entity instanceof ZombieSheep zombieSheep) {
                         if (event.getEntity() instanceof Sheep sheep) {
                             zombieSheep.setColor(sheep.getColor());
+                        }
+                    }
+                    if (event.getEntity() instanceof Ageable ageable) {
+                        if (entity.getBukkitEntity() instanceof Ageable newAgeable) {
+                            if (!ageable.isAdult()) newAgeable.setBaby();
                         }
                     }
                 },

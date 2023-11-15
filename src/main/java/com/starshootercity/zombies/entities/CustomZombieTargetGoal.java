@@ -4,8 +4,6 @@ import com.destroystokyo.paper.entity.ai.Goal;
 import com.destroystokyo.paper.entity.ai.GoalKey;
 import com.destroystokyo.paper.entity.ai.GoalType;
 import com.starshootercity.zombies.InfectionIsland;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -43,7 +41,7 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
 
 
     private LivingEntity getClosestEntity() {
-        Collection<Player> nearbyPlayers = mob.getWorld().getNearbyPlayers(mob.getLocation(), 10.0, player ->
+        Collection<Player> nearbyPlayers = mob.getWorld().getNearbyPlayers(mob.getLocation(), 16.0, player ->
                 !player.isDead() && player.getGameMode() != GameMode.SPECTATOR && player.getGameMode() != GameMode.CREATIVE && player.isValid());
         double closestDistance = -1;
         LivingEntity closestEntity = null;
@@ -55,7 +53,7 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
             closestDistance = distance;
             closestEntity = player;
         }
-        Collection<Entity> nearbyEntities = mob.getNearbyEntities(10, 10, 10);
+        Collection<Entity> nearbyEntities = mob.getNearbyEntities(16, 16, 16);
         for (Entity nearbyEntity : nearbyEntities) {
             double distance = nearbyEntity.getLocation().distanceSquared(mob.getLocation());
             if (closestDistance != -1 && !(distance < closestDistance)) {
