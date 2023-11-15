@@ -12,8 +12,10 @@ import org.bukkit.entity.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.List;
 
 public class CustomZombieTargetGoal implements Goal<Mob> {
     private final GoalKey<Mob> key;
@@ -38,26 +40,21 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
 
 
     private LivingEntity getClosestEntity() {
-        Collection<Player> nearbyPlayers = mob.getWorld().getNearbyPlayers(mob.getLocation(), 16.0, player ->
-                !player.isDead() && player.getGameMode() != GameMode.SPECTATOR && player.getGameMode() != GameMode.CREATIVE && player.isValid());
         double closestDistance = -1;
         LivingEntity closestEntity = null;
-        for (Player player : nearbyPlayers) {
-            double distance = player.getLocation().distanceSquared(mob.getLocation());
-            if (closestDistance != -1 && !(distance < closestDistance)) {
-                continue;
-            }
-            closestDistance = distance;
-            closestEntity = player;
-        }
         Collection<Entity> nearbyEntities = mob.getNearbyEntities(16, 16, 16);
         for (Entity nearbyEntity : nearbyEntities) {
+            if (nearbyEntity instanceof Player player) {
+                if (!(!player.isDead() && player.getGameMode() != GameMode.SPECTATOR && player.getGameMode() != GameMode.CREATIVE && player.isValid())) continue;
+            }
             double distance = nearbyEntity.getLocation().distanceSquared(mob.getLocation());
             if (closestDistance != -1 && !(distance < closestDistance)) {
                 continue;
             }
             if (nearbyEntity instanceof LivingEntity living) {
-                if (!CustomEntityRegister.zombifiableMobs.contains(living.getType()) || living == mob) continue;
+                List<Entity> attacked = CustomEntityRegister.hasAttacked.get(mob);
+                if (attacked == null) attacked = new ArrayList<>();
+                if (!(CustomEntityRegister.zombifiableMobs.contains(living.getType()) || attacked.contains(nearbyEntity)) || living == mob) continue;
                 if (living.getPersistentDataContainer().has(CustomEntityRegister.customEntityKey)) continue;
                 closestDistance = distance;
                 closestEntity = living;

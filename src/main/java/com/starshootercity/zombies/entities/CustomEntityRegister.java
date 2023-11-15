@@ -8,6 +8,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.world.EntitiesLoadEvent;
@@ -16,7 +17,9 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomEntityRegister implements Listener {
 
@@ -79,7 +82,8 @@ public class CustomEntityRegister implements Listener {
                     if (event.getEntity().getPotionEffect(PotionEffectType.REGENERATION) != null) return;
                     ZombieEntity entity = createZombieVariant(event.getEntityType(),
                             event.getEntity().getLocation());
-                    if (entity != null) entity.complete();
+                    if (entity == null) return;
+                    entity.complete();
                     if (entity instanceof ZombieSheep zombieSheep) {
                         if (event.getEntity() instanceof Sheep sheep) {
                             zombieSheep.setColor(sheep.getColor());
@@ -100,5 +104,21 @@ public class CustomEntityRegister implements Listener {
             event.setDamage(event.getDamage() / 2.5);
         }
     }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (event.getEntity().getPersistentDataContainer().has(customEntityKey)) {
+            hasAttacked.putIfAbsent(event.getEntity(), new ArrayList<>());
+            Entity damager = event.getDamager();
+            if (damager instanceof Projectile projectile) {
+                if (projectile.getShooter() instanceof Entity entity) {
+                    damager = entity;
+                } else return;
+            }
+            hasAttacked.get(event.getEntity()).add(damager);
+        }
+    }
+
+    public static Map<Entity, List<Entity>> hasAttacked = new HashMap<>();
 }
 
