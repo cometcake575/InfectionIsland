@@ -62,6 +62,7 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
                 }
                 if (nearbyEntity instanceof LivingEntity living) {
                     if (living.getType() != mob.getType() || living == mob) continue;
+                    if (living.getPersistentDataContainer().has(CustomEntityRegister.customEntityKey)) continue;
                     closestDistance = distance;
                     closestEntity = living;
                 }

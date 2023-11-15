@@ -41,13 +41,13 @@ public class CustomEntityRegister implements Listener {
         };
     }
 
-    NamespacedKey key = new NamespacedKey(InfectionIsland.getInstance(), "CustomEntity");
+    protected static NamespacedKey customEntityKey = new NamespacedKey(InfectionIsland.getInstance(), "CustomEntity");
 
     @EventHandler
     public void onEntitiesLoad(EntitiesLoadEvent event) {
         for (Entity entity : event.getEntities()) {
             if (entity instanceof Mob mob) {
-                if (Boolean.TRUE.equals(entity.getPersistentDataContainer().get(key, PersistentDataType.BOOLEAN))) {
+                if (Boolean.TRUE.equals(entity.getPersistentDataContainer().get(customEntityKey, PersistentDataType.BOOLEAN))) {
                     loadZombieVariant(mob).complete();
                 }
             }
@@ -56,14 +56,12 @@ public class CustomEntityRegister implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (Boolean.TRUE.equals(event.getEntity().getPersistentDataContainer().get(key, PersistentDataType.BOOLEAN))) {
+        if (Boolean.TRUE.equals(event.getEntity().getPersistentDataContainer().get(customEntityKey, PersistentDataType.BOOLEAN))) {
             for (ItemStack i : event.getDrops()) {
                 i.setType(Material.ROTTEN_FLESH);
             }
             if (event.getEntityType() == EntityType.PIG) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask(InfectionIsland.getInstance(), () -> {
-                    event.getEntity().getLocation().createExplosion(3);
-                }, 20);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(InfectionIsland.getInstance(), () -> event.getEntity().getLocation().createExplosion(3), 20);
             }
             return;
         }
