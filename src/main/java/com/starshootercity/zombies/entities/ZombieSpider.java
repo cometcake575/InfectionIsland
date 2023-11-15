@@ -1,10 +1,7 @@
 package com.starshootercity.zombies.entities;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -18,7 +15,7 @@ public class ZombieSpider extends ZombieEntity {
     }
 
     @Override
-    public void inflict(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, 0, false));
+    public void inflict(LivingEntity entity) {
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, 0, false));
     }
 }

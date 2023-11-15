@@ -21,7 +21,7 @@ public class ZombieSheep extends ZombieEntity {
     }
 
     @Override
-    public void inflict(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 240, 2, false));
+    public void inflict(LivingEntity entity) {
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 240, 2, false));
     }
 }

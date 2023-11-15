@@ -10,6 +10,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.craftbukkit.v1_20_R2.entity.CraftMob;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
@@ -76,7 +77,7 @@ public abstract class ZombieEntity {
         return strength;
     }
 
-    public void inflict(Player player) {
+    public void inflict(LivingEntity entity) {
 
     }
 }
