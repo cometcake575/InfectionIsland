@@ -8,10 +8,7 @@ import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
@@ -94,7 +91,13 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
             entity.inflict(closestEntity);
             mob.attack(closestEntity);
         } else {
-            mob.getPathfinder().moveTo(closestEntity, entity.getSpeed());
+            double speed = entity.getSpeed();
+            if (entity instanceof Ageable ageable) {
+                if (!ageable.isAdult()) {
+                    speed = Math.max(speed, 1.25);
+                }
+            }
+            mob.getPathfinder().moveTo(closestEntity, speed);
         }
     }
 }

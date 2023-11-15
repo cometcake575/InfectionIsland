@@ -51,7 +51,7 @@ public abstract class ZombieEntity {
     }
 
     public void complete() {
-        setSpeed(1.2);
+        setSpeed(1.3);
         setStrength(2.0);
         registerGoals();
     }
