@@ -2,6 +2,7 @@ package com.starshootercity.zombies.entities;
 
 import com.starshootercity.zombies.InfectionIsland;
 import net.kyori.adventure.text.Component;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -46,6 +47,8 @@ public abstract class ZombieEntity {
         FloatGoal floatGoal = new FloatGoal(((CraftMob) bukkitEntity).getHandle());
 
         CustomZombieTargetGoal targetGoal = new CustomZombieTargetGoal(this);
+        WaterAvoidingRandomStrollGoal strollGoal = new WaterAvoidingRandomStrollGoal((PathfinderMob) ((CraftMob) bukkitEntity).getHandle(), getSpeed());
+        Bukkit.getMobGoals().addGoal(bukkitEntity, 2, strollGoal.asPaperVanillaGoal());
         Bukkit.getMobGoals().addGoal(bukkitEntity, 1, targetGoal);
         Bukkit.getMobGoals().addGoal(bukkitEntity, 0, floatGoal.asPaperVanillaGoal());
     }
