@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.event.world.EntitiesLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -116,6 +117,13 @@ public class CustomEntityRegister implements Listener {
                 } else return;
             }
             hasAttacked.get(event.getEntity()).add(damager);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerShearEntity(PlayerShearEntityEvent event) {
+        if (event.getEntity().getPersistentDataContainer().has(customEntityKey)) {
+            event.setCancelled(true);
         }
     }
 

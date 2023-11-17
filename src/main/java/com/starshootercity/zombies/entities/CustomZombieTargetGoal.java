@@ -44,10 +44,15 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
         LivingEntity closestEntity = null;
         Collection<Entity> nearbyEntities = mob.getNearbyEntities(16, 16, 16);
         for (Entity nearbyEntity : nearbyEntities) {
+            double distance = nearbyEntity.getLocation().distanceSquared(mob.getLocation());
             if (nearbyEntity instanceof Player player) {
                 if (!(!player.isDead() && player.getGameMode() != GameMode.SPECTATOR && player.getGameMode() != GameMode.CREATIVE && player.isValid())) continue;
+                if (closestEntity == null || closestEntity.getType() != EntityType.PLAYER) {
+                    closestEntity = player;
+                    closestDistance = distance;
+                    continue;
+                }
             }
-            double distance = nearbyEntity.getLocation().distanceSquared(mob.getLocation());
             if (closestDistance != -1 && !(distance < closestDistance)) {
                 continue;
             }
