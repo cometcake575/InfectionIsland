@@ -3,9 +3,6 @@
 resource-pack:
   # URL of the resource pack
   url: "https://raw.githubusercontent.com/cometcake575/InfectionIsland/main/Resource%20Pack.zip"
-  # Sha1 hash of the resource pack
-  # Change this if you change the pack
-  sha1: "264b88c7c36325fd43981db8e7c1338bcffac22c"
   # Whether to force players to use the pack
   enforce: true
   # Message displayed to players when joining
