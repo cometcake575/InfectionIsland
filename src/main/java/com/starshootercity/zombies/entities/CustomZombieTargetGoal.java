@@ -8,6 +8,8 @@ import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.craftbukkit.v1_20_R2.entity.CraftMob;
+import org.bukkit.craftbukkit.v1_20_R2.util.CraftLocation;
 import org.bukkit.entity.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -61,6 +63,7 @@ public class CustomZombieTargetGoal implements Goal<Mob> {
                 if (attacked == null) attacked = new ArrayList<>();
                 if (!(CustomEntityRegister.zombifiableMobs.contains(living.getType()) || attacked.contains(nearbyEntity)) || living == mob) continue;
                 if (living.getPersistentDataContainer().has(CustomEntityRegister.customEntityKey)) continue;
+                if (!mob.hasLineOfSight(living)) continue;
                 closestDistance = distance;
                 closestEntity = living;
             }
