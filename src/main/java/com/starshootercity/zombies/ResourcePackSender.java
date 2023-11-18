@@ -8,10 +8,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class ResourcePackSender implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        String url = InfectionIsland.getInstance().getConfig().getString("pack-url");
-        boolean forceAccept = InfectionIsland.getInstance().getConfig().getBoolean("enforce-pack");
-        String packMessage = InfectionIsland.getInstance().getConfig().getString("pack-message");
+        String url = InfectionIsland.getInstance().getConfig().getString("resource-pack.url");
+        boolean forceAccept = InfectionIsland.getInstance().getConfig().getBoolean("resource-pack.enforce");
+        String packMessage = InfectionIsland.getInstance().getConfig().getString("resource-pack.message");
+        String sha1 = InfectionIsland.getInstance().getConfig().getString("resource-pack.sha1");
         if (url == null || url.equals("") || packMessage == null) return;
-        event.getPlayer().setResourcePack(url, null, Component.text(packMessage), forceAccept);
+        if (sha1 == null) {
+            event.getPlayer().setResourcePack(url, null, Component.text(packMessage), forceAccept);
+        } else event.getPlayer().setResourcePack(url, sha1, forceAccept, Component.text(packMessage));
     }
 }

@@ -1,10 +1,15 @@
-# URL of resource pack - default is the GitHub link
-# Leave blank to use no pack
-pack-url: "https://raw.githubusercontent.com/cometcake575/InfectionIsland/main/Resource%20Pack.zip"
-# Enforce using the resource pack
-enforce-pack: true
-# Resource pack message
-pack-message: "Infection resource pack"
+# Resource pack configuration
+# Leave this as it is if you just want to play with the default settings
+resource-pack:
+  # URL of the resource pack
+  url: "https://raw.githubusercontent.com/cometcake575/InfectionIsland/main/Resource%20Pack.zip"
+  # Sha1 hash of the resource pack
+  # Change this if you change the pack
+  sha1: "264b88c7c36325fd43981db8e7c1338bcffac22c"
+  # Whether to force players to use the pack
+  enforce: true
+  # Message displayed to players when joining
+  message: "Accept the resource pack to join the server"
 
 # Number of lives each player currently has
 lives: {}
