@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.event.world.EntitiesLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
@@ -74,6 +75,15 @@ public class CustomEntityRegister implements Listener {
             }
             if (event.getEntityType() == EntityType.PIG) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(InfectionIsland.getInstance(), () -> event.getEntity().getLocation().createExplosion(3), 20);
+            }
+            if (event.getEntityType() == EntityType.SPIDER) {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(InfectionIsland.getInstance(), () -> {
+                    AreaEffectCloud cloud = (AreaEffectCloud) event.getEntity().getWorld().spawnEntity(event.getEntity().getLocation(),
+                            EntityType.AREA_EFFECT_CLOUD);
+                    cloud.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 100, 0, false, true), false);
+                    cloud.spawnAt(event.getEntity().getLocation());
+                    cloud.setDuration(200);
+                }, 20);
             }
             return;
         }
